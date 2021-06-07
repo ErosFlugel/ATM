@@ -7,6 +7,7 @@ class Buck {
 
 function bucksMaker( v, q ) {
     atm_repository.push( new Buck( v, q ) );
+    bucks_given.push( new Buck( v, 0 ) );
 }
 
 function home() {
@@ -19,16 +20,14 @@ function home() {
     return value;
 }
 
-function orderAtmRepositoryByvalue() {
+function orderByvalue() {
 
-    atm_repository.sort( function ( a, b ) {
-        return b.value - a.value;
-    } );
+    atm_repository.sort( function ( a, b ) { return b.value - a.value; } );
+    bucks_given.sort( function ( a, b ) { return b.value - a.value; } );
 }
 
 function printResult() {
 
-    bucks_given = [];
     repository_info.innerHTML = "";
 
     if ( request.value <= parseInt( home() ) && request.value > 0 ) {
@@ -51,6 +50,7 @@ function printResult() {
 
         if ( request.value == number_condition ) {
 
+            let cont = 0;
             for ( let bukys of atm_repository ) {
 
                 let bucks_result_quantity = Math.floor( wish / bukys.value );
@@ -59,7 +59,7 @@ function printResult() {
                     bucks_result_quantity = bukys.quantity;
                 }
 
-                bucks_given.push( new Buck( bukys.value, bucks_result_quantity ) );
+                bucks_given[ cont ].quantity += bucks_result_quantity;
                 bukys.quantity -= bucks_result_quantity;
                 wish -= bucks_result_quantity * bukys.value;
 
@@ -69,6 +69,7 @@ function printResult() {
                 else if ( bucks_result_quantity == 1 ) {
                     result.innerHTML += bucks_result_quantity + " Buck of " + bukys.value + "<br />";
                 }
+                cont += 1;
             }
         }
         else {

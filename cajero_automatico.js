@@ -15,4 +15,4 @@ bucksMaker( 5, 4 );
 bucksMaker( 100, 3 );
 
 home();
-orderAtmRepositoryByvalue();
+orderByvalue();
